@@ -79,7 +79,8 @@ console.log(email1,password1)
       
           try {
           const data=await signin();
-          dispatch(authActions.login(data.data.idToken))
+          dispatch(authActions.login(data.data.idToken));
+          dispatch(authActions.emaillogin(data.data.email))
            console.log(data)
             dispatch(
               uiActions.showNotification({

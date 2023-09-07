@@ -1,10 +1,10 @@
 import ForgetPassword from "./components/ForgetPassword";
-import InboxMail from "./components/InboxMail";
 import Login from "./components/Login";
 import Navbars from "./components/Navbars";
 import Notification from "./ui/Notification";
 import { useSelector } from "react-redux";
 import { Routes,Route } from 'react-router-dom';
+import InboxMail from "./components/MailBox/InboxMail";
 
 const App = () => {
   const notification = useSelector((state) => state.ui.notification);
@@ -22,6 +22,7 @@ const App = () => {
           title={notification.title}
         ></Notification>
       )}
+    
      
       <Routes>
    

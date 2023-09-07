@@ -25,6 +25,10 @@ const authslice=createSlice({
              
 
         },
+        emaillogin(state,action){
+            //const email=action.payload.replace('.','').replace('@','');
+            localStorage.setItem('emailtoken',action.payload)
+        },
         logout(state){
             localStorage.removeItem('token')
             
