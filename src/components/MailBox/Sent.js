@@ -4,7 +4,7 @@ import { Button, } from 'react-bootstrap';
 //import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useRef } from 'react';
 
-import { Sentmail,SaveSentmail } from '../../store/sent-actions';
+import { Sentmail,SaveSentmail} from '../../store/sent-actions';
 import { useDispatch } from 'react-redux';
 
 const Sent = () => {
@@ -13,7 +13,7 @@ const Sent = () => {
     const emailref=useRef();
     const textarearef=useRef();
     const subjectref=useRef();
-    const sent='sent';
+    
     
     const submithandler=(event)=>{
   event.preventDefault();
@@ -24,17 +24,22 @@ const Sent = () => {
     email:email2,
   text:textarearef.current.value,
   subject:subjectref.current.value,
+  date:new Date().toLocaleString(),
+  sent:'receive'
   }
+  
   const add2={
     email:email1,
     text:textarearef.current.value,
     subject:subjectref.current.value,
-    sent:sent,
+    sent:'sent',
+    date:new Date().toLocaleString()
     }
   dispatch(Sentmail(email1,add1))
   dispatch(SaveSentmail(add2))
-  console.log(email1,add1)
+
     }
+    
   
   return (
     

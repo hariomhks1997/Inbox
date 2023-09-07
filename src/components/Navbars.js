@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { authActions } from '../store/auth-slice';
+import { cartActions } from '../store/cart-slice';
 
 
 const Navbars = (props) => {
@@ -19,7 +20,7 @@ const Navbars = (props) => {
   const logouthandler=()=>{
     
     dispatch(authActions.logout())
-   
+   dispatch(cartActions.addarray([]))
    
   }
   return (

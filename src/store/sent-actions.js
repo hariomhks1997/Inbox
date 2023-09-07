@@ -1,9 +1,10 @@
 import axios from "axios";
 import { uiActions } from "./ui-slice";
+import { cartActions } from "./cart-slice";
 
 
 export const Sentmail = (email,msg) => {
-  console.log(email,msg)
+  
  const email1=email.replace('.','').replace('@','')
 
 
@@ -49,7 +50,8 @@ export const Sentmail = (email,msg) => {
   
   
   export const  SaveSentmail = (msg) => {
-    const email=localStorage.getItem('emailtoken').replace('.','').replace('@','')
+    const email=localStorage.getItem('emailtoken').replace('.','').replace('@','');
+   
   
   
   
@@ -64,14 +66,16 @@ export const Sentmail = (email,msg) => {
         const sent = async () => {
          const response= await axios.post(
               `https://react-hariom-default-rtdb.firebaseio.com/${email}.json`,msg);
-       
-        return response;
-       
+       const add={
+        id:response.data.name,
+        ...msg
+       }
+    return add;
       }
     
         try {
-          await sent();
-         
+          const data=await sent();
+         dispatch(cartActions.sentItemToCart(data))
           dispatch(
             uiActions.showNotification({
               status: 'sucess',
@@ -80,7 +84,7 @@ export const Sentmail = (email,msg) => {
             })
           );
         } catch (error) {
-        
+        console.log(error)
           dispatch(
             uiActions.showNotification({
               status: 'error',
@@ -92,6 +96,68 @@ export const Sentmail = (email,msg) => {
       };
     };
   
+    export const  GetSaveSentmail = () => {
+      const email=localStorage.getItem('emailtoken').replace('.','').replace('@','')
+      console.log(email)
+    
+    
+        return async (dispatch) => {
+          dispatch(
+                  uiActions.showNotification({
+                    status: 'pending',
+                    title: 'Getting...',
+                    message: 'Getting mail pending!',
+                  })
+                );
+          const sentget = async () => {
+           const response= await axios.get(
+                `https://react-hariom-default-rtdb.firebaseio.com/${email}.json`);
+                const data=await response.data;
+               return data;
+        }
+      
+          try {
+            const dat=await sentget();
+            
+        
+            if(dat===undefined){
+              return;
+            }else{
+              for(const key in dat){
+                const add={
+                  id:key,
+                  date:dat[key].date,
+                  text:dat[key].text,
+                  subject:dat[key].subject,
+                  email:dat[key].email,
+                  sent:dat[key].sent,
+  
+                }
+              
+                dispatch(cartActions.sentItemToCart(add))
+              }
+             
+            }
+         
+            dispatch(
+              uiActions.showNotification({
+                status: 'sucess',
+                title: 'sucess...',
+                message: 'Getting mail sucessfully',
+              })
+            );
+          } catch (error) {
+          console.log(error)
+            dispatch(
+              uiActions.showNotification({
+                status: 'error',
+                title: 'Error!',
+                message: `Getting mail failed! ${error.response.data.error.message}`,
+              })
+            );
+          }
+        };
+      };
     
   
   

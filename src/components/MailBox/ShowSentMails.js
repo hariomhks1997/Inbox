@@ -1,35 +1,23 @@
 import React from 'react';
 import Accordion from 'react-bootstrap/Accordion';
+import CardHeader from 'react-bootstrap/esm/CardHeader';
 
-const ShowSentMails = () => {
+const ShowSentMails = (props) => {
+  if(props.sent==='receive'){
+    return;
+  }
+  
   return (
-    <div style={{width:'100%',height:'30rem',overflow:'scroll'}}>
+    <div  >
          <Accordion >
       <Accordion.Item eventKey="0">
-        <Accordion.Header>Accordion Item #2</Accordion.Header>
+        <Accordion.Header>
+          <CardHeader style={{background:'pink',borderRadius:'8px',padding:'5px'}}>Subject:-{props.subject} </CardHeader> 
+          <CardHeader style={{background:'pink',marginLeft:'1rem',borderRadius:'8px',padding:'5px'}}>To:-{props.email}</CardHeader>
+          <CardHeader style={{background:'pink',borderRadius:'8px',padding:'5px',marginLeft:'1rem'}}>Date:-{props.date}</CardHeader> 
+          </Accordion.Header>
         <Accordion.Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Accordion.Body>
-      </Accordion.Item>
-      
-    </Accordion>
-    <Accordion >
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Accordion Item #2</Accordion.Header>
-        <Accordion.Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+         <CardHeader>{props.text}</CardHeader>
         </Accordion.Body>
       </Accordion.Item>
       

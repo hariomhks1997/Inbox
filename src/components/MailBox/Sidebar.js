@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Inbox from './Inbox';
+import { NavLink } from 'react-router-dom';
+
 
 const Sidebar = (props) => {
   const inboxhandler=()=>{
@@ -15,10 +15,10 @@ const Sidebar = (props) => {
   return (
     <div>
         <div style={{backgroundColor:'lightblue',padding:'1rem',borderRadius:'1rem',height:'100%'}}>
-        <Link onClick={composehandler} ><h4>Compose</h4></Link>
-          <Link onClick={inboxhandler}><h4>Inbox</h4></Link>
-          <Link onClick={showsenthandler}><h4>SentMail</h4></Link>
-          <h4>Unread</h4>
+        <NavLink onClick={composehandler} style={{backgroundColor:'pink',textDecoration:'none'}}><h4>Compose</h4></NavLink>
+          <NavLink style={{backgroundColor:'pink',textDecoration:'none'}} onClick={inboxhandler}><h4 >Inbox</h4></NavLink>
+          <NavLink onClick={showsenthandler} style={{backgroundColor:'pink',textDecoration:'none'}}><h4>SentMail</h4></NavLink>
+       
            
         </div>
     </div>

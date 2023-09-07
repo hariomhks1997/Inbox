@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
 const Login=()=> {
   const navigate=useNavigate();
 
@@ -61,8 +62,10 @@ const Login=()=> {
     }
     if(!isLogin){
     dispatch(Signup(email1,password1,!isLogin))
+   
     }else{
       dispatch(SignIn(email1,password1,isLogin))
+    
     }
     
  

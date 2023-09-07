@@ -55,7 +55,7 @@ console.log(email1,password1)
 
   export const SignIn = (email1,password1) => {
    
-    console.log(email1,password1)
+    
     
         return async (dispatch) => {
           dispatch(
@@ -81,6 +81,7 @@ console.log(email1,password1)
           const data=await signin();
           dispatch(authActions.login(data.data.idToken));
           dispatch(authActions.emaillogin(data.data.email))
+
            console.log(data)
             dispatch(
               uiActions.showNotification({

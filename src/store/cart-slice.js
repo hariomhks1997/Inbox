@@ -4,33 +4,44 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     items: [],
-    totalQuantity: 0,
     changed: false,
   },
   reducers: {
     replaceCart(state, action) {
-      state.totalQuantity = action.payload.totalQuantity;
-      state.items = action.payload.items;
+      console.log(action.payload)
+      
+      state.items=[action.payload,...state.items]
     },
-    addItemToCart(state, action) {
+    addarray(state,action){
+   state.items=action.payload
+    },
+    sentItemToCart(state, action) {
       const newItem = action.payload;
       const existingItem = state.items.find((item) => item.id === newItem.id);
-      state.totalQuantity++;
-      state.changed = true;
+         state.changed=true;
       if (!existingItem) {
-        state.items.push({
+        // state.items.push({
+        //   id: newItem.id,
+        //   subject: newItem.subject,
+        //   email: newItem.email,
+        //   text:newItem.text,
+        //   date:newItem.date,
+        //   sent:newItem.sent
+        // });
+        state.items=[{
           id: newItem.id,
-          price: newItem.price,
-          quantity: 1,
-          totalPrice: newItem.price,
-          name: newItem.title,
-        });
+          subject: newItem.subject,
+          email: newItem.email,
+          text:newItem.text,
+          date:newItem.date,
+          sent:newItem.sent},...state.items
+        ]
       } else {
         existingItem.quantity++;
         existingItem.totalPrice = existingItem.totalPrice + newItem.price;
       }
     },
-    removeItemFromCart(state, action) {
+    removesentItemFromCart(state, action) {
       const id = action.payload;
       const existingItem = state.items.find((item) => item.id === id.id);
       state.totalQuantity--;
