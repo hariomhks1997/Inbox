@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 
 const InboxMail = () => {
  const sentitem=useSelector(state=>state.cart.items)
- console.log(sentitem)
+ 
   const [inbox, setinbox] = useState(false)
   const [sent, setsent] = useState(false)
   const [compose, setcompose] = useState(true)
@@ -34,11 +34,11 @@ const InboxMail = () => {
   }
   
  const showproduct=sentitem.map((item)=>(
- <ShowSentMails key={item.id} text={item.text} date={item.date} email={item.email} subject={item.subject} sent={item.sent}></ShowSentMails>
+ <ShowSentMails key={item.id} text={item.text} date={item.date} email={item.email} subject={item.subject} sent={item.sent} id={item.id} read={item.read}></ShowSentMails>
  ))
 
  const showinbo=sentitem.map((item)=>(
-  <Inbox key={item.id} text={item.text} date={item.date} email={item.email} subject={item.subject} sent={item.sent}></Inbox>
+  <Inbox key={item.id} text={item.text} date={item.date} email={item.email} subject={item.subject} sent={item.sent}  id={item.id} read={item.read}></Inbox>
   ))
   
 

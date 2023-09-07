@@ -131,6 +131,7 @@ export const Sentmail = (email,msg) => {
                   subject:dat[key].subject,
                   email:dat[key].email,
                   sent:dat[key].sent,
+                  read:dat[key].read
   
                 }
               
@@ -159,7 +160,51 @@ export const Sentmail = (email,msg) => {
         };
       };
     
+      export const Bluetickmail = (item) => {
   
+        const email1=localStorage.getItem('emailtoken').replace('.','').replace('@','');
+       
+       
+       
+           return async (dispatch) => {
+             dispatch(
+                     uiActions.showNotification({
+                       status: 'pending',
+                       title: 'Sending...',
+                       message: 'Sending mail pending!',
+                     })
+                   );
+             const blue = async () => {
+              const response= await axios.put(
+                   `https://react-hariom-default-rtdb.firebaseio.com/${email1}/${item.id}.json`,item);
+            
+             return response;
+            
+           }
+         
+             try {
+               await blue();
+              
+               dispatch(
+                 uiActions.showNotification({
+                   status: 'sucess',
+                   title: 'sucess...',
+                   message: 'Send mail sucessfully',
+                 })
+               );
+             } catch (error) {
+             
+               dispatch(
+                 uiActions.showNotification({
+                   status: 'error',
+                   title: 'Error!',
+                   message: `Sending mail failed! ${error.response.data.error.message}`,
+                 })
+               );
+             }
+           };
+         };
+         
   
   
   

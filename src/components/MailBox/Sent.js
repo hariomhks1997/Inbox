@@ -25,7 +25,8 @@ const Sent = () => {
   text:textarearef.current.value,
   subject:subjectref.current.value,
   date:new Date().toLocaleString(),
-  sent:'receive'
+  sent:'receive',
+  read:'blue'
   }
   
   const add2={

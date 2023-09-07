@@ -5,6 +5,7 @@ const cartSlice = createSlice({
   initialState: {
     items: [],
     changed: false,
+    quantity:0
   },
   reducers: {
     replaceCart(state, action) {
@@ -15,8 +16,14 @@ const cartSlice = createSlice({
     addarray(state,action){
    state.items=action.payload
     },
+    Quantity(state,action){
+      state.quantity=action.payload
+    },
     sentItemToCart(state, action) {
       const newItem = action.payload;
+      if(newItem.read==='blue'){
+        state.quantity++
+      }
       const existingItem = state.items.find((item) => item.id === newItem.id);
          state.changed=true;
       if (!existingItem) {
@@ -34,11 +41,13 @@ const cartSlice = createSlice({
           email: newItem.email,
           text:newItem.text,
           date:newItem.date,
-          sent:newItem.sent},...state.items
+          sent:newItem.sent,
+          read:newItem.read,
+        },...state.items
         ]
       } else {
-        existingItem.quantity++;
-        existingItem.totalPrice = existingItem.totalPrice + newItem.price;
+        
+        existingItem.read = newItem.read
       }
     },
     removesentItemFromCart(state, action) {
