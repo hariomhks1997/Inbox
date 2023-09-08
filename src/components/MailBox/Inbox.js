@@ -35,9 +35,10 @@ const Inbox = (props) => {
   
   const deletehandler=async()=>{
     const add={
-      id:props.id
+      id:props.id,
+      read:props.read
     }
-    console.log('delteadd')
+
     
       dispatch(Deleteemail(add))
     
@@ -52,10 +53,11 @@ const Inbox = (props) => {
     subject:props.subject,
     email:props.email,
     sent:props.sent,
-    read:'white'
+    read:'white',
+    quantity:0
 
   }
-  console.log('blue')
+
   
     dispatch(Bluetickmail(add))
   

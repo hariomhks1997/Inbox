@@ -1,11 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
 
 const Sidebar = (props) => {
-  const quantity=useSelector(state=>state.cart.quantity)
-  console.log(quantity)
+
+  let quantity=0;
+  props.bluequantity.map((item)=>(
+  quantity=item.quantity+quantity
+  ))
+
+  
+ 
+  
+  
+  
  
   const inboxhandler=()=>{
    props.inbox()

@@ -26,15 +26,19 @@ const Sent = () => {
   subject:subjectref.current.value,
   date:new Date().toLocaleString(),
   sent:'receive',
-  read:'blue'
+  read:'blue',
+  quantity:1
   }
+  
   
   const add2={
     email:email1,
     text:textarearef.current.value,
     subject:subjectref.current.value,
     sent:'sent',
-    date:new Date().toLocaleString()
+    date:new Date().toLocaleString(),
+    quantity:0
+  
     }
   dispatch(Sentmail(email1,add1))
   dispatch(SaveSentmail(add2))

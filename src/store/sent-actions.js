@@ -6,7 +6,7 @@ import { cartActions } from "./cart-slice";
 export const Sentmail = (email,msg) => {
 
  const email1=email.replace('.','').replace('@','')
-
+ 
 
 
     return async (dispatch) => {
@@ -51,7 +51,7 @@ export const Sentmail = (email,msg) => {
 
   export const  SaveSentmail = (msg) => {
     const email=localStorage.getItem('emailtoken').replace('.','').replace('@','');
-
+ 
 
 
 
@@ -97,8 +97,9 @@ export const Sentmail = (email,msg) => {
     };
 
     export const  GetSaveSentmail = () => {
+      
       const email=localStorage.getItem('emailtoken').replace('.','').replace('@','')
-      console.log(email)
+      
 
 
         return async (dispatch) => {
@@ -110,6 +111,8 @@ export const Sentmail = (email,msg) => {
                   })
                 );
           const sentget = async () => {
+            
+          
            const response= await axios.get(
                 `https://react-hariom-default-rtdb.firebaseio.com/${email}.json`);
                 const data=await response.data;
@@ -118,11 +121,12 @@ export const Sentmail = (email,msg) => {
 
           try {
             const dat=await sentget();
-
+        
+                
 
             if(dat==='undefined'){
 
-              
+             dispatch(cartActions.addarray([])) 
 
             }else{
               for(const key in dat){
@@ -133,7 +137,8 @@ export const Sentmail = (email,msg) => {
                   subject:dat[key].subject,
                   email:dat[key].email,
                   sent:dat[key].sent,
-                  read:dat[key].read
+                  read:dat[key].read,
+                  quantity:dat[key].quantity
 
                 }
 
@@ -164,11 +169,11 @@ export const Sentmail = (email,msg) => {
       };
 
       export const Deleteemail = (item) => {
-        console.log(item.id)
+        
 
         const email1=localStorage.getItem('emailtoken').replace('.','').replace('@','');
 
-
+         
 
            return async (dispatch) => {
              dispatch(
@@ -187,9 +192,8 @@ export const Sentmail = (email,msg) => {
            }
 
              try {
-             const data=await Delete();
-             console.log(data)
-              console.log('delete')
+             await Delete();
+  
               dispatch(cartActions.removesentItemFromCart(item))
                dispatch(
                  uiActions.showNotification({
@@ -258,6 +262,57 @@ export const Sentmail = (email,msg) => {
              }
            };
          };
+         export const  intervalSaveSentmail = () => {
+      
+          const email=localStorage.getItem('emailtoken').replace('.','').replace('@','')
+          
+    
+    
+            return async (dispatch) => {
+              
+              const sentget = async () => {
+                
+                
+               const response= await axios.get(
+                    `https://react-hariom-default-rtdb.firebaseio.com/${email}.json`);
+                    const data=await response.data;
+                   return data;
+            }
+    
+              try {
+                const dat=await sentget();
+                
+    
+                if(dat==='null'){
+    
+                 dispatch(cartActions.addarray([])) 
+    
+                }else{
+                  for(const key in dat){
+                    const add={
+                      id:key,
+                      date:dat[key].date,
+                      text:dat[key].text,
+                      subject:dat[key].subject,
+                      email:dat[key].email,
+                      sent:dat[key].sent,
+                      read:dat[key].read,
+                      quantity:dat[key].quantity
+    
+                    }
+    
+                    dispatch(cartActions.sentItemToCart(add))
+                     
+                  }
+    
+                }
+              
+    
+              } catch (error) {
+             
+              }
+            };
+          };
 
 
 

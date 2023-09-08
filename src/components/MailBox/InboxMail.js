@@ -38,7 +38,7 @@ const InboxMail = () => {
  ))
 
  const showinbo=sentitem.map((item)=>(
-  <Inbox key={item.id} text={item.text} date={item.date} email={item.email} subject={item.subject} sent={item.sent}  id={item.id} read={item.read}></Inbox>
+  <Inbox key={item.id} text={item.text} date={item.date} email={item.email} subject={item.subject} sent={item.sent}  id={item.id} read={item.read} ></Inbox>
   ))
   
 
@@ -47,7 +47,7 @@ const InboxMail = () => {
          <Container style={{marginTop:'5rem',}}>
       <div style={{display:'flex',justifyContent:'space-between'}}>
      
-      <Sidebar inbox={showinbox} sent={sentbox} compose={showcompose}></Sidebar>
+      <Sidebar inbox={showinbox} sent={sentbox} compose={showcompose} bluequantity={sentitem}></Sidebar>
       {compose && <Sent></Sent>}
       {overflow && <div style={{width:'100%',height:'30rem',overflow:'scroll'}}>
      {sent && showproduct}

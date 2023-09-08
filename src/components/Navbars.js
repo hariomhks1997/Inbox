@@ -21,7 +21,7 @@ const Navbars = (props) => {
     
     dispatch(authActions.logout())
    dispatch(cartActions.addarray([]))
-   dispatch(cartActions.Quantity(0))
+   window.location.reload(dispatch(authActions.logout()))
    
   }
   return (

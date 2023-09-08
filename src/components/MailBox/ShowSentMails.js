@@ -33,7 +33,7 @@ const ShowSentMails = (props) => {
     const add={
       id:props.id
     }
-    console.log('delteadd')
+  
     
       dispatch(Deleteemail(add))
     
@@ -49,7 +49,7 @@ const ShowSentMails = (props) => {
          <CustomToggle eventKey="0" >Open me!</CustomToggle>
         
          <CardHeader style={{background:'pink',borderRadius:'8px',padding:'5px',}}>Subject:-{props.subject} </CardHeader> 
-          <CardHeader style={{background:'pink',borderRadius:'8px',padding:'5px'}}>From:-{props.email}</CardHeader>
+          <CardHeader style={{background:'pink',borderRadius:'8px',padding:'5px'}}>To:-{props.email}</CardHeader>
           <CardHeader style={{background:'pink',borderRadius:'8px',padding:'5px',}}>Date:-{props.date}</CardHeader> 
           <Button  onClick={deletehandler}>Delete</Button>
          
