@@ -3,18 +3,48 @@ import Accordion from 'react-bootstrap/Accordion';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 import { Bluetickmail } from '../../store/sent-actions';
 import { useDispatch } from 'react-redux';
+import { Button } from 'react-bootstrap';
+import { Deleteemail } from '../../store/sent-actions';
+import Card from 'react-bootstrap/Card';
+import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 
+function CustomToggle({ children, eventKey }) {
+  const decoratedOnClick = useAccordionButton(eventKey, () =>
+    console.log('totally custom!'),
+  );
+
+  return (
+    <button
+      type="button"
+      style={{ backgroundColor: 'grey' }}
+      onClick={decoratedOnClick}
+    >
+      {children}
+    </button>
+  );
+}
 
 
 const Inbox = (props) => {
-  console.log(props)
+  
  
   const dispatch=useDispatch();
   if(props.sent==='sent'){
     return;
   };
   
-  const bluetickhandler=()=>{
+  const deletehandler=async()=>{
+    const add={
+      id:props.id
+    }
+    console.log('delteadd')
+    
+      dispatch(Deleteemail(add))
+    
+   
+  }
+  
+  const bluetickhandler=async ()=>{
   const add={
     id:props.id,
     date:props.date,
@@ -25,29 +55,44 @@ const Inbox = (props) => {
     read:'white'
 
   }
+  console.log('blue')
+  
+    dispatch(Bluetickmail(add))
+  
 
-  dispatch(Bluetickmail(add))
+ 
   
 
   }
-   
+  
+
   
   return (
     <div  >
-         <Accordion >
-      <Accordion.Item eventKey="0" onClick={bluetickhandler}>
-        <Accordion.Header>
-       <CardHeader style={{background:`${props.read}`,padding:'8px'}}></CardHeader>
-         <CardHeader style={{background:'pink',borderRadius:'8px',padding:'5px',marginLeft:'1rem'}}>Subject:-{props.subject} </CardHeader> 
-          <CardHeader style={{background:'pink',marginLeft:'1rem',borderRadius:'8px',padding:'5px'}}>From:-{props.email}</CardHeader>
-          <CardHeader style={{background:'pink',borderRadius:'8px',padding:'5px',marginLeft:'1rem'}}>Date:-{props.date}</CardHeader> 
-          </Accordion.Header>
-        <Accordion.Body >
-         <CardHeader>{props.text}</CardHeader>
-        </Accordion.Body>
-      </Accordion.Item>
+        
+     <Accordion >
+     <Card>
+       <Card.Header style={{display:'flex',justifyContent:'space-between'}}>
+       <CardHeader style={{background:`${props.read}`,width:'5px',height:'1px',marginTop:'1rem',borderRadius:'1rem',padding:'5px'}}></CardHeader>
+         <CustomToggle eventKey="0" >Open me!</CustomToggle>
+        
+         <CardHeader style={{background:'pink',borderRadius:'8px',padding:'5px',}}>Subject:-{props.subject} </CardHeader> 
+          <CardHeader style={{background:'pink',borderRadius:'8px',padding:'5px'}}>From:-{props.email}</CardHeader>
+          <CardHeader style={{background:'pink',borderRadius:'8px',padding:'5px',}}>Date:-{props.date}</CardHeader> 
+          <Button  onClick={deletehandler}>Delete</Button>
+         
+        
+       </Card.Header>
+       <Accordion.Collapse eventKey="0"  onMouseEnter={bluetickhandler}>
+         <Card.Body>{props.text}</Card.Body>
+       </Accordion.Collapse>
+     </Card>
+   
+       
       
-    </Accordion>
+     
+   </Accordion>
+   
     </div>
   )
 }

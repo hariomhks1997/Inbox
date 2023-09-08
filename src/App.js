@@ -15,6 +15,7 @@ const App = () => {
   const notification = useSelector((state) => state.ui.notification);
   const isLoggedIn=useSelector(state=>state.auth.isLoggedIn);
   const change=useSelector(state=>state.cart.changed);
+  console.log(change)
   const dispatch=useDispatch();
   useEffect(() => {
     if(initial && isLoggedIn){
@@ -39,7 +40,7 @@ const App = () => {
     }
     console.log('render2')
     dispatch(GetSaveSentmail())
-  }, [isLoggedIn,dispatch,change])
+  }, [isLoggedIn,dispatch])
   
   
   

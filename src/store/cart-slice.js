@@ -15,6 +15,7 @@ const cartSlice = createSlice({
     },
     addarray(state,action){
    state.items=action.payload
+   state.changed=true;
     },
     Quantity(state,action){
       state.quantity=action.payload
@@ -51,16 +52,23 @@ const cartSlice = createSlice({
       }
     },
     removesentItemFromCart(state, action) {
-      const id = action.payload;
-      const existingItem = state.items.find((item) => item.id === id.id);
-      state.totalQuantity--;
-      state.changed = true;
-      if (existingItem.quantity === 1) {
-        state.items = state.items.filter((item) => item.id !== id.id);
-      } else {
-        existingItem.quantity--;
-        existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
+      // const id = action.payload;
+      // const existingItem = state.items.find((item) => item.id === id.id);
+      // state.totalQuantity--;
+      // state.changed = true;
+      // if (existingItem.quantity === 1) {
+      //   state.items = state.items.filter((item) => item.id !== id.id);
+      // } else {
+      //   existingItem.quantity--;
+      //   existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
+      // }
+      if(state.quantity>0){
+        state.quantity=state.quantity-1;
       }
+      const id = action.payload;
+      state.items = state.items.filter((item) => item.id !== id.id);
+      
+      state.changed=true;
     },
   },
 });
