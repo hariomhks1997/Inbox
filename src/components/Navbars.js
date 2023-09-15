@@ -9,19 +9,30 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { authActions } from '../store/auth-slice';
 import { cartActions } from '../store/cart-slice';
+import { uiActions } from '../store/ui-slice';
 
 
-const Navbars = (props) => {
+const Navbars = () => {
  
 
   const isLoggedIn=useSelector(state=>state.auth.isLoggedIn)
   const dispatch=useDispatch();
  
   const logouthandler=()=>{
-    
-    dispatch(authActions.logout())
-   dispatch(cartActions.addarray([]))
    window.location.reload(dispatch(authActions.logout()))
+   dispatch(authActions.logout())
+  
+   dispatch(cartActions.addarray([]))
+   
+   dispatch(
+    uiActions.showNotification({
+      status: 'sucess',
+      title: 'sucess...',
+      message: 'Logout mail sucessfully',
+    })
+  );
+
+  
    
   }
   return (

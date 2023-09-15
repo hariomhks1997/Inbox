@@ -6,6 +6,7 @@ import classes from './Login.module.css'
 import {Signup,SignIn} from '../store/cart-actions';
 import { useDispatch,  } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { idsave } from '../store/id-actions';
 
 
 
@@ -62,14 +63,22 @@ const Login=()=> {
     }
     if(!isLogin){
     dispatch(Signup(email1,password1,!isLogin))
+    setisLogin(true)
    
     }else{
       dispatch(SignIn(email1,password1,isLogin))
+      localStorage.setItem('id',Math.random().toString())
+      localStorage.setItem('time',new Date().toLocaleString())
+      
+      setTimeout(() => {
+        dispatch(idsave())
+      }, 5000);
+     
     
     }
-    
- 
-
+    setemail('') 
+    setpassword('')
+    setconfirmpassword('')
     }
     const forgetpasswordhanfdler=(event)=>{
       event.preventDefault()
@@ -84,7 +93,7 @@ const Login=()=> {
     <CardHeader style={{textAlign:'center',fontSize:'2rem'}}>{!isLogin ?'SignUp':'Login' }</CardHeader>
       <Form.Group style={{marginTop:'1rem',marginLeft:'1rem',marginRight:'1rem'}} className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control onChange={emailhandler} type="email" placeholder="Enter email" />
+        <Form.Control onChange={emailhandler} type="email" value={email} placeholder="Enter email" />
         <Form.Text className="text-muted">
           We'll never share your email with anyone else.
         </Form.Text>
@@ -92,11 +101,11 @@ const Login=()=> {
 
       <Form.Group style={{marginLeft:'1rem',marginRight:'1rem'}} className="mb-3" controlId="formBasicPassword">
         <Form.Label  >Password</Form.Label>
-        <Form.Control onChange={passwordhandler} type="password" placeholder="Password" />
+        <Form.Control onChange={passwordhandler} value={password} type="password" placeholder="Password" />
       </Form.Group>
       {!isLogin && <Form.Group style={{marginLeft:'1rem',marginRight:'1rem'}} className="mb-3" controlId="formBasicPassword">
         <Form.Label > Confirm Password</Form.Label>
-        <Form.Control onChange={confirmpasswordhandler} type="password" placeholder="Password" />
+        <Form.Control onChange={confirmpasswordhandler}  value={confirmpassword} type="password" placeholder="Password" />
       </Form.Group>}
       <div style={{textAlign:'center'}}>
       <Button style={{marginBottom:'1rem',marginLeft:'1rem',marginRight:'1rem',width:'90%'}} variant="primary" type="submit">

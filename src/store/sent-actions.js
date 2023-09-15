@@ -263,15 +263,18 @@ export const Sentmail = (email,msg) => {
            };
          };
          export const  intervalSaveSentmail = () => {
-      
-          const email=localStorage.getItem('emailtoken').replace('.','').replace('@','')
+           
+          const email=localStorage.getItem('emailtoken');
+         
           
     
     
             return async (dispatch) => {
-              
+              if(email===null){
+                dispatch(cartActions.addarray([]))
+              }
               const sentget = async () => {
-                
+                const email=localStorage.getItem('emailtoken').replace('.','').replace('@','')
                 
                const response= await axios.get(
                     `https://react-hariom-default-rtdb.firebaseio.com/${email}.json`);

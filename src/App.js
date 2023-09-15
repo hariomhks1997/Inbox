@@ -8,6 +8,8 @@ import { Routes,Route } from 'react-router-dom';
 import InboxMail from "./components/MailBox/InboxMail";
 import { GetSaveSentmail ,intervalSaveSentmail} from "./store/sent-actions";
 import { useDispatch } from 'react-redux';
+import { verifyemail } from "./store/cart-actions";
+import { idget } from "./store/id-actions";
 
 
 
@@ -20,12 +22,14 @@ const App = () => {
   const change=useSelector(state=>state.cart.changed);
   
   const dispatch=useDispatch();
+ 
   useEffect(() => {
     if(initial && isLoggedIn){
       initial=false;
 
+      
+      
       dispatch(GetSaveSentmail())
-    
      
     }
    
@@ -47,29 +51,56 @@ const App = () => {
   }, [isLoggedIn,dispatch])
 
   const email=localStorage.getItem('emailtoken')
-  console.log(email)
   useEffect(() => {
     
-    if(email===null){
-     
-      return;
-    }
+  
   setInterval(() => {
-    if(email===null){
-     
-      return;
-    }
-      dispatch(intervalSaveSentmail())
+   if(isLoggedIn){
+    dispatch(intervalSaveSentmail())
+   
+   }
+      
     
     }, 2000);
    
     // eslint-disable-next-line
   }, [email])
   
+  useEffect(() => {
+   const time1= setInterval(() => {
+      if(isLoggedIn){
+        dispatch(verifyemail())
+        
+      }
+     
+    }, 120000);
+    return ()=>{
+      clearInterval(time1)
+    }
+   // eslint-disable-next-line
+  }, [isLoggedIn])
  
-  // setTimeout(function () {
-  //   window.location.reload()
-  // }, 2000);
+  useEffect(() => {
+    
+   const time= setInterval(() => {
+      if(isLoggedIn){
+        console.log(isLoggedIn)
+        dispatch(idget())
+      }
+      
+     
+    }, 10000);
+    return ()=>{
+      clearInterval(time)
+    }
+  }, [isLoggedIn])
+  
+  
+ 
+  // useEffect(() => {
+  //   localStorage.setItem('emailtoken','1')
+  // }, [])
+  
   
  
   return (

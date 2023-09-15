@@ -23,13 +23,16 @@ const Sidebar = (props) => {
   const composehandler=()=>{
     props.compose()
   }
+  const unreadhandler=()=>{
+    props.unread()
+  }
   return (
     <div>
         <div style={{backgroundColor:'lightblue',padding:'1rem',borderRadius:'1rem',height:'100%'}}>
         <NavLink onClick={composehandler} style={{backgroundColor:'pink',textDecoration:'none'}}><h4>Compose</h4></NavLink>
           <NavLink style={{backgroundColor:'pink',textDecoration:'none'}} onClick={inboxhandler}><h4 >Inbox</h4></NavLink>
           <NavLink onClick={showsenthandler} style={{backgroundColor:'pink',textDecoration:'none'}}><h4>SentMail</h4></NavLink>
-          <NavLink onClick={showsenthandler} style={{backgroundColor:'pink',textDecoration:'none'}}><h4>Unread {quantity}</h4></NavLink>
+          <NavLink onClick={unreadhandler} style={{backgroundColor:'pink',textDecoration:'none'}}><div style={{display:'flex',justifyContent:'space-around'}}><h4>Unread </h4><h6>{quantity}</h6></div></NavLink>
        
            
         </div>

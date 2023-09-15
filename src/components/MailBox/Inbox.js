@@ -1,4 +1,4 @@
-import React  from 'react';
+import React,{useEffect,useContext} from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 import { Bluetickmail } from '../../store/sent-actions';
@@ -7,6 +7,8 @@ import { Button } from 'react-bootstrap';
 import { Deleteemail } from '../../store/sent-actions';
 import Card from 'react-bootstrap/Card';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
+import CartContext from '../../store2/Cart-context';
+
 
 function CustomToggle({ children, eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey, () =>
@@ -26,10 +28,27 @@ function CustomToggle({ children, eventKey }) {
 
 
 const Inbox = (props) => {
-  
+  console.log(props)
+ const refresh = useContext(CartContext)
  
   const dispatch=useDispatch();
-  if(props.sent==='sent'){
+  useEffect(() => {
+    setTimeout(() => {
+      refresh.additem(true)
+    }, 1000);
+     
+     
+      setTimeout(() => {
+        refresh.additem(false)
+      }, 2000);
+     
+    // eslint-disable-next-line
+  }, [])
+  
+  
+ 
+  
+  if(props.sent==='sent' || props.sent==='undefined'){
     return;
   };
   
@@ -57,7 +76,10 @@ const Inbox = (props) => {
     quantity:0
 
   }
-
+  if(props.read==='white'){
+    return;
+  }
+  
   
     dispatch(Bluetickmail(add))
   
@@ -71,7 +93,7 @@ const Inbox = (props) => {
   
   return (
     <div  >
-        
+    
      <Accordion >
      <Card>
        <Card.Header style={{display:'flex',justifyContent:'space-between'}}>

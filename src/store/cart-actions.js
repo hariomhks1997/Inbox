@@ -90,6 +90,7 @@ console.log(email1,password1)
                 message: 'Logging data sucessfully',
               }),
               
+              
             );
            
           } catch (error) {
@@ -161,3 +162,61 @@ console.log(email1,password1)
             };
           };
         
+          export const verifyemail= () => {
+            const token=localStorage.getItem('token')
+         
+           
+          
+            
+                return async (dispatch) => {
+                
+                  dispatch(
+                          uiActions.showNotification({
+                            status: 'pending',
+                            title: 'verifying email...',
+                            message: 'verify Email pending!',
+                          })
+                        );
+                  const verify = async () => {
+                    
+                  const response=await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAz3m7AYKNKO0fdAzD5nOCyTT-6dTFAzy4",{
+                    requestType:"VERIFY_EMAIL",
+                    idToken:token,
+            
+                  })
+                 console.log(response)
+                  return response;
+
+                 
+                }
+              
+                  try {
+                  await verify();
+                 
+                   
+                    dispatch(
+                      uiActions.showNotification({
+                        status: 'sucess',
+                        title: 'sucess...',
+                        message: 'verify Email Sucessfully',
+                      }),
+                      
+                    );
+                    
+                   
+                   
+                  } catch (error) {
+                    
+                    dispatch(
+                      uiActions.showNotification({
+                        status: 'error',
+                        title: 'Error!',
+                        message: `verify email failed! ${error.response.data.error.message}`,
+                      })
+                    );
+                    //dispatch(authActions.logout())
+                   
+                  }
+                };
+              };
+            

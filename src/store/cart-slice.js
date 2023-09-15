@@ -8,14 +8,11 @@ const cartSlice = createSlice({
     quantity:0
   },
   reducers: {
-    replaceCart(state, action) {
-      console.log(action.payload)
-      
-      state.items=[action.payload,...state.items]
-    },
+   
     addarray(state,action){
    state.items=action.payload
    state.changed=true;
+   localStorage.setItem('emailtoken','1')
     },
     Quantity(state,action){
       state.quantity=action.payload

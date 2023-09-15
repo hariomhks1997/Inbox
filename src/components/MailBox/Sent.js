@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useContext} from 'react';
 import { Button, } from 'react-bootstrap';
 //import { Editor } from "react-draft-wysiwyg";
 //import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -6,10 +6,24 @@ import { useRef } from 'react';
 
 import { Sentmail,SaveSentmail} from '../../store/sent-actions';
 import { useDispatch } from 'react-redux';
+import CartContext from '../../store2/Cart-context';
 
 const Sent = () => {
+  const refresh = useContext(CartContext)
     const dispatch=useDispatch();
- 
+    useEffect(() => {
+      setTimeout(() => {
+        refresh.additem(true)
+      }, 1000);
+       
+       
+        setTimeout(() => {
+          refresh.additem(false)
+        }, 2000);
+       
+      
+    // eslint-disable-next-line 
+    }, [])
     const emailref=useRef();
     const textarearef=useRef();
     const subjectref=useRef();
@@ -37,7 +51,8 @@ const Sent = () => {
     subject:subjectref.current.value,
     sent:'sent',
     date:new Date().toLocaleString(),
-    quantity:0
+    quantity:0,
+    
   
     }
   dispatch(Sentmail(email1,add1))
@@ -52,7 +67,7 @@ const Sent = () => {
         
        
     
-      <form onSubmit={submithandler} style={{marginLeft:'1rem',width:'100%'}}>
+      <form onSubmit={submithandler} style={{marginLeft:'1rem',width:'100%',}}>
       <div style={{display:'flex',justifyContent:'space-between'}}>
     <label>To</label>
     <input type='email'style={{border:'white',width:'100%',marginLeft:'1%',marginRight:'1%'}} ref={emailref}></input>

@@ -12,12 +12,13 @@ const authslice=createSlice({
     name:'authentician',
     initialState:initialauthstate,
     reducers:{
+      
         login(state,action){
-            console.log(action.payload)
+          
       localStorage.setItem('token',action.payload)
        const token=localStorage.getItem('token')
        const userIsLoggedIn=!!token
-       console.log(userIsLoggedIn)
+       
             
                 state.isLoggedIn=userIsLoggedIn;
                 state.token=token;
@@ -30,8 +31,10 @@ const authslice=createSlice({
             localStorage.setItem('emailtoken',action.payload)
         },
         logout(state){
+            window.location.reload()
             localStorage.removeItem('token')
             localStorage.removeItem('emailtoken')
+            localStorage.setItem('emailtoken','1')
             
             state.isLoggedIn=false
         },
